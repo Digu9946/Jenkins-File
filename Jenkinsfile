@@ -4,7 +4,7 @@ pipeline {
 				label {
 				
 				
-				label "slave-1"
+				label "Built-in"
 				customWorkspace "/mnt/project"
 				
 				}
@@ -23,3 +23,5 @@ pipeline {
 								sh "sudo chmod -R 777 /var/www/html"
 								sh "sudo service httpd start"
 					}
+			}
+	}
