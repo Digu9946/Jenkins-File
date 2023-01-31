@@ -1,21 +1,25 @@
 pipeline {
-     agent {
-	     
-		 label "built-in"
-	 
-	 }
-	 
-	 stages {
-	     
-		 stage ('Install-HTTPD') {
-		 
-		 steps {
-		    
-		    sh "yum install httpd -y"
-            sh "service httpd start"
-            sh "echo 'Hello All' >> /var/www/html/index.html"
-            sh "chmod -R 777 /var/www/html/index.html"
-		}
-	   }
-	 }
-}
+
+	agent {
+				label {
+				
+				
+				label "slave-1"
+				customWorkspace "/mnt/project"
+				
+				}
+	}
+	
+	stages {
+		
+			stage ('git-clone') {
+				
+					steps {     
+					            sh "rm -rf *"
+								sh "sudo yum install git -y"
+								sh "sudo yum install httpd -y"
+								sh "git clone https://github.com/avadhutpatils/test.git"
+								sh "cd test && sudo cp -r index.html /var/www/html/"
+								sh "sudo chmod -R 777 /var/www/html"
+								sh "sudo service httpd start"
+					}
